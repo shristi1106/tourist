@@ -1,0 +1,55 @@
+<% include ../partials/header%>
+<div class="container">
+   <div class="row">
+       <div class="col-md-3">
+                <p class="lead">Travel Information</p>
+                <div class="list-group">
+                    <li class="list-group-item active">Info 1</li>
+                    <li class="list-group-item"> Info 2</li>
+                    <li class="list-group-item"> Info 3</li>
+                </div>
+       </div>
+       <div class="col-md-9">
+            <h1><%=location.name%></h1>
+            <div class="thumbnail">
+                <img src="<%=location.image%>" class="image-responsive">
+                <div class="caption">
+                    <p><%=location.description%></p>
+                    <p><em>Submitted by <%= location.author.username%></em></p>
+                    <% if(currentUser && location.author.id.equals(currentUser._id)){%>
+                        <a class= "btn btn-warning" href="/destinations/<%= location.id%>/edit">Edit</a>
+                        <form class="delete-form" action="/destinations/<%= location.id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger"> Delete</button>
+                        </form>
+                    <%}%>
+                    
+                </div>
+            </div>
+            <div class="well">
+                <div class="text=right">
+                    <a href="/destinations/<%=location._id%>/comments/new" class="btn btn-success">Leave a Review</a>
+                    <hr>
+                </div>
+                <%location.comments.forEach(function(comment){%>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username%></strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p><%= comment.text%></p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){%>
+                            <a class= "btn btn-warning btn-xs" 
+                               href="/destinations/<%= location.id%>/comments/<%=comment._id%>/edit">
+                               Edit
+                            </a>
+                            <form class=" delete-form" action="/destinations/<%=location._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                            <input type="Submit" value="Delete" class="btn btn-xs btn-danger">
+                            </form>
+                            <%}%>
+                        </div>
+                    </div>
+                <%})%>
+            </div>
+       </div>
+   </div>
+</div>
+<% include ../partials/footer%>

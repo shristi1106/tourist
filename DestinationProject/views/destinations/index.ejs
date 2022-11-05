@@ -1,0 +1,28 @@
+<% include ../partials/header%>
+
+<div class="container">
+    <header class="jumbotron">
+        <h1>This is the destinations page!</h1>
+        <p>View our hand-pciked destinations from all over the world</p>
+        <p>
+            <a href="/destinations/new" class="btn btn-primary">Add New Destination</a> 
+        </p> 
+    </header>
+
+    
+    <div class="row" style="display:flex; flex-wrap:wrap;">
+        <% for(var i=0; i<destinations.length;i++){ %>
+        <div class="col-md-3 col-sm-6">
+            <div class="thumbnail">
+                <img src="<%=destinations[i]['image']%>" alt="">
+                <div class="caption">
+                    <h4><%=destinations[i]['name']%></h4>
+                    <a href="destinations/<%=destinations[i]['_id']%>" class="btn btn-primary">More Info</a>
+                </div>               
+            </div>       
+        </div>        
+         <%}%>
+    </div>         
+</div>
+
+<% include ../partials/footer%>
